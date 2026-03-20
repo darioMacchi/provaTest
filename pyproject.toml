@@ -1,0 +1,11 @@
+[project]
+name = "prova"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "pylint>=4.0.5",
+    "pytest>=9.0.2",
+    "ruff>=0.15.7",
+]
