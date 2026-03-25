@@ -5,7 +5,12 @@ description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.11"
 dependencies = [
+    "coverage>=7.13.5",
+    "hypothesis>=6.151.9",
+    "mutmut>=3.5.0",
     "pylint>=4.0.5",
     "pytest>=9.0.2",
     "ruff>=0.15.7",
 ]
+[tool.mutmut]
+paths_to_mutate = [ "main.py" ]
