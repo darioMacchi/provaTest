@@ -1,4 +1,5 @@
 from main import Product, calculate_order_total
+import pytest
 
 # Direct test
 
@@ -143,4 +144,21 @@ def test_promo_code():
     is_vip = False
     attended_result = (25.0*3 + 15.0*2) - 10
 
-    assert calculate_order_total(order_list, promo_code, is_vip) == attended_result
+    assert calculate_order_total(order_list, promo_code, is_vip) == attended_result + 10
+
+# Group test
+
+@pytest.mark.parametrize("orders, promo_code, is_vip, expected",
+    [
+		([], "SAVE10", False, 0.0),
+		([Product("Scarpe", 25.0, 3)], "SAVE10", False, 75.0),
+		([Product("Scarpe", 25.0, 4)], "SAVE10", False, 90.0),
+		([Product("Scarpe", 25.0, 1)], "SAVE10", False, 30.0),
+		([Product("Scarpe", 25.0, 1)], "SAVE10", True, 27.0)
+	]
+)
+def test_ordine(orders, promo_code, is_vip, expected):
+    '''
+    Group test case: Empty order, Not promo code, Promo code, Normal shipping, VIP shipping 
+    '''
+    assert calculate_order_total(orders, promo_code, is_vip) == expected
