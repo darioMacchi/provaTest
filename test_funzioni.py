@@ -142,9 +142,9 @@ def test_promo_code():
     order_list = [p1,p2]
     promo_code = "save10"
     is_vip = False
-    attended_result = (25.0*3 + 15.0*2) - 10
+    attended_result = (25.0*3 + 15.0*2)
 
-    assert calculate_order_total(order_list, promo_code, is_vip) == attended_result + 10
+    assert calculate_order_total(order_list, promo_code, is_vip) == attended_result
 
 # Group test
 
