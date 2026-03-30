@@ -3,21 +3,23 @@ from hypothesis import given, strategies as st
 
 # Property Based Testing
 
-promo_code = st.text()
-is_vip = st.booleans()
-products = st.builds(Product, st.text(), st.floats(min_value=0.01), st.integers(min_value=1))
-@given(orders=st.lists(products, min_size=2, max_size=5))
-def test_subtotal_not_zero(orders):
+@given(
+        orders=st.lists(st.builds(Product, st.text(), st.floats(min_value=0.01), st.integers(min_value=1)), min_size=2, max_size=5),
+        promo_code=st.text(),
+        is_vip=st.booleans()
+        )
+def test_subtotal_not_zero(orders, promo_code, is_vip):
     '''
     Test case 1: Not empty order greater than zero property
     '''
     assert calculate_order_total(orders, promo_code, is_vip) > 0
 
-promo_code = st.text()
-is_vip = st.booleans()
-products = st.builds(Product, st.text(), st.floats(min_value=50), st.integers(min_value=1))
-@given(orders=st.lists(products, min_size=2, max_size=5))
-def test_subtotal_greater_fifty(orders):
+@given(
+        orders=st.lists(st.builds(Product, st.text(), st.floats(min_value=50), st.integers(min_value=1)), min_size=2, max_size=5),
+        promo_code=st.text(),
+        is_vip=st.booleans()
+        )
+def test_subtotal_greater_fifty(orders, promo_code, is_vip):
     '''
     Test case 2: Free shipping as subtotal greater than fifty property
     '''
@@ -27,11 +29,11 @@ def test_subtotal_greater_fifty(orders):
 
     assert calculate_order_total(orders, promo_code, is_vip) == expected_value
 
-promo_code = st.text()
-is_vip = st.booleans()
-products = st.builds(Product, st.text(), st.floats(min_value=0.01, max_value=9.99), st.integers(min_value=1, max_value=1))
-@given(orders=st.lists(products, min_size=2, max_size=5))
-def test_subtotal_smaller_fifty(orders):
+@given(
+        orders=st.lists(st.builds(Product, st.text(), st.floats(min_value=0.01, max_value=9.99), st.integers(min_value=1, max_value=1)), min_size=2, max_size=5),
+        promo_code=st.text(),
+        is_vip=st.booleans())
+def test_subtotal_smaller_fifty(orders, promo_code, is_vip):
     '''
     Test case 3: Shipping fee as subtotal smaller than fifty property
     '''
