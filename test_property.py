@@ -8,7 +8,7 @@ from hypothesis import given, strategies as st
         promo_code=st.text(),
         is_vip=st.booleans()
         )
-def test_subtotal_not_zero(orders, promo_code, is_vip):
+def test_subtotal_greater_than_zero(orders, promo_code, is_vip):
     '''
     Test case 1: Not empty order greater than zero property
     '''
